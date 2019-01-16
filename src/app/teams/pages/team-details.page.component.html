@@ -1,0 +1,8 @@
+<p><strong>Name:</strong> {{ team.name }}</p>
+<p><strong>Year of foundation:</strong> {{ team.yearOfFoundation }}</p>
+<p><strong>Coach:</strong> {{ team.coach }}</p>
+<p><strong>Points in this season:</strong> {{ team.points }}</p>
+<p><strong>Last match:</strong> {{ team.name }} - {{team.lastMatchAgainst}} {{team. lastMatchScoredGoals}}-{{team.lastMatchOpponentGoals}}</p>
+<!-- <p><strong>:</strong>&nbsp;<app-rating [rating]="team.rating" (clicked)="ratingClicked($event)"></app-rating></p> -->
+
+<a routerLink="/teams">back to the list</a>
