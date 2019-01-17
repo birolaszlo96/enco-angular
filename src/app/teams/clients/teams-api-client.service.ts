@@ -16,7 +16,7 @@ const Opponents: Array<string> = [
 
 const listMock: TeamListModel[] = [
   { id: 1, name: 'Ferencváros', yearOfFoundation: 1899, coach: 'Serhiy Rebrov', matches: 10, victories: 6, lastMatch: 1 },
-  { id: 2, name: 'Mol Vidi FC', yearOfFoundation: 1931, coach: 'Marko Nikolic', matches: 9, victories: 6, lastMatch: 3 },
+  { id: 2, name: 'Mol Vidi FC', yearOfFoundation: 1931, coach: 'Marko Nikolic', matches: 9, victories: 9, lastMatch: 3 },
   { id: 3, name: 'Szombathelyi Haladás', yearOfFoundation: 1945, coach: 'Horváth Ferenc', matches: 10, victories: 0, lastMatch: 0 }
 ];
 const detailsMocks: TeamDetailsModel[] =

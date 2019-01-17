@@ -7,7 +7,7 @@ import { TeamDetailsModel } from '../models/team-details.model';
   templateUrl: './team-details.page.component.html'
 })
 export class TeamDetailsPageComponent implements OnInit {
-
+  inputStr: string;
   team: TeamDetailsModel;
 
   constructor(

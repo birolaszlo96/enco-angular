@@ -9,11 +9,11 @@ export class VictoryRateComponent implements OnChanges {
   @Input() victoryRate = 0;
   @Output() clicked = new EventEmitter<number>();
 
-  starWidth = 0;
+  squareWidth = 0;
   victoryRateString = '';
 
   ngOnChanges(): void {
-    this.starWidth = this.victoryRate * 150;
+    this.squareWidth = this.victoryRate * 138;
     this.victoryRateString = Math.floor(this.victoryRate * 100) + ' %';
 
   }

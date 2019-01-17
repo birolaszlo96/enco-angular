@@ -6,7 +6,6 @@ import { TeamListModel } from '../models/team-list.model';
   templateUrl: './team-list.page.component.html'
 })
 export class TeamListPageComponent implements OnInit {
-  filter: string;
   teams: TeamListModel[];
 
   constructor(private teamsApiClient: TeamsApiClientService) { }
