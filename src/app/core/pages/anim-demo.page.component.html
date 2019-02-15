@@ -1,5 +1,7 @@
-<button (click)="toggle()">toggle box</button>
+<button (click)="open()">Puff up ball</button>
+<button (click)="close()">Let down ball</button>
 
-<div [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container">
-    <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
-</div>
+<div
+  [@openClose]="isOpen ? 'open' : 'closed'"
+  class="open-close-container"
+></div>

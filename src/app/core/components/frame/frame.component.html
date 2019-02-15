@@ -1,7 +1,10 @@
-<div #cont>eeee</div>
-<button (click)="clicked()">puke rainbows</button><br /><br />
-<button (click)="clicked2(cont)">just puke</button><br /><br />
-<app-victoryrate [victoryRate]="5"></app-victoryrate><br /><br />
-<app-victoryrate [victoryRate]="4">hhgjhgjhg</app-victoryrate>
-<ng-container><p>sdf</p></ng-container>
-<ng-content></ng-content>
+<ng-container>
+  <p>CHoosE carefully!</p>
+</ng-container>
+
+<button (click)="clicked()">The best is RONALDO!!!</button><br />
+<button (click)="clicked2(cont)">The best is MESSI!!!</button><br />
+<button (click)="clicked3()" #cont>The best is TORGHELLE SANYI!!!</button
+><br /><br />
+<ng-content></ng-content><br />
+<app-victoryrate [victoryRate]="0.63"> </app-victoryrate>

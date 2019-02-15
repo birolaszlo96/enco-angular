@@ -1,34 +1,47 @@
 import { Component } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
 
 @Component({
-    templateUrl: './anim-demo.page.component.html',
-    styles: ['./anim-demo.page.component.scss'],
-    animations: [
-        trigger('openClose', [
-            state('open', style({
-                height: '200px',
-                opacity: 1,
-                backgroundColor: 'yellow'
-            })),
-            state('closed', style({
-                height: '100px',
-                opacity: 0.5,
-                backgroundColor: 'green'
-            })),
-            transition('open => closed', [
-                animate('1s')
-            ]),
-            transition('closed => open', [
-                animate('0.5s')
-            ]),
-        ])
-    ]
+  templateUrl: './anim-demo.page.component.html',
+  styles: ['./anim-demo.page.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state(
+        'open',
+        style({
+          height: '1000px',
+          width: '1000px',
+          borderRadius: '500px',
+          backgroundColor: 'green'
+        })
+      ),
+      state(
+        'closed',
+        style({
+          height: '4px',
+          width: '4px',
+          borderRadius: '2px',
+          backgroundColor: 'green'
+        })
+      ),
+      transition('open => closed', [animate('3s')]),
+      transition('closed => open', [animate('3s')])
+    ])
+  ]
 })
 export class AnimDemoPageComponent {
-    isOpen = true;
+  isOpen = false;
 
-    toggle() {
-        this.isOpen = !this.isOpen;
-    }
+  open() {
+    this.isOpen = true;
+  }
+  close() {
+    this.isOpen = false;
+  }
 }

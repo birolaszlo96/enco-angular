@@ -18,23 +18,27 @@ export class FrameComponent {
   @ViewChildren(VictoryRateComponent) ps: QueryList<VictoryRateComponent>;
   @ViewChild(VictoryRateComponent) vcRating: VictoryRateComponent;
 
-  @ContentChild(VictoryRateComponent) ccRating: VictoryRateComponent;
+  @ContentChild(VictoryRateComponent) ccString: VictoryRateComponent;
 
   clicked() {
-    console.log('log viewchildren');
-    this.ps.forEach(x => console.log(x));
-
-    console.log('log viewchild rating');
-    console.log(this.vcRating);
-
-    console.log('log container');
-    console.log(this.container);
+    // console.log('log container');
+    // console.log(this.container);
 
     console.log('log contentchild rating');
-    console.log(this.ccRating);
+    console.log(this.ccString);
+    alert('wrong answer!!!!4!!!!');
   }
 
   clicked2(el: ElementRef) {
+    console.log('No.');
     console.log(el);
+    alert('View logs!');
+  }
+  clicked3() {
+    // console.log('log viewchildren');
+    // this.ps.forEach(x => console.log(x));
+    alert('Congrats, you are fenomenal like Torghelle!');
+    console.log('log viewchild rating');
+    console.log(this.vcRating);
   }
 }
