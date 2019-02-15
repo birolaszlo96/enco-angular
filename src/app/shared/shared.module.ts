@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { VictoryRateComponent } from './components/victoryrate/victoryrate.component';
 import { MatchResultToFaiconPipe } from './pipes/match-result-to-faicon.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [VictoryRateComponent, MatchResultToFaiconPipe],
@@ -13,17 +17,27 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    MatProgressSpinnerModule
-    //  MatTableModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
     FormsModule,
-    //   MatTableModule,
+    MatTableModule,
     VictoryRateComponent,
     MatchResultToFaiconPipe,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule {}

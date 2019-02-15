@@ -1,52 +1,60 @@
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Year of foundation</th>
-      <th>Coach</th>
-      <th>Last match</th>
-      <th>Victories/matches</th>
-      <th>Victory rate</th>
-    </tr>
-    <tr>
-      <th>
-        <input
-          type="text"
-          [(ngModel)]="filter.name"
-          (input)="debouncer$.next($event.target.value)"
-          #filterField
-        />
-      </th>
-      <th></th>
-      <th>
-        <input
-          type="text"
-          [(ngModel)]="filter.coach"
-          (input)="debouncer$.next($event.target.value)"
-          #filterField
-        />
-      </th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let team of teams">
-      <td>
-        <a [routerLink]="['/teams', team.id]">{{ team.name }}</a>
-      </td>
-      <td>{{ team.yearOfFoundation }}</td>
-      <td>{{ team.coach }}</td>
-      <td><span class="{{ team.lastMatch | matchResultToFaicon }}"></span></td>
-      <td>{{ team.victories }}/{{ team.matches }}</td>
-      <td>
-        <app-victoryrate
-          [victoryRate]="team.victories / team.matches"
-        ></app-victoryrate>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<a mat-raised-button routerLink="/teams/create">Add new favourite</a>
+<div class="table-container">
+  <div class="table-loading-indicator" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Year of foundation</th>
+        <th>Coach</th>
+        <th>Last match</th>
+        <th>Victories/matches</th>
+        <th>Victory rate</th>
+      </tr>
+      <tr>
+        <th>
+          <input
+            type="text"
+            [(ngModel)]="filter.name"
+            (input)="debouncer$.next($event.target.value)"
+            #filterField
+          />
+        </th>
+        <th></th>
+        <th>
+          <input
+            type="text"
+            [(ngModel)]="filter.coach"
+            (input)="debouncer$.next($event.target.value)"
+            #filterField
+          />
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of teams">
+        <td>
+          <a [routerLink]="['/teams', team.id]">{{ team.name }}</a>
+        </td>
+        <td>{{ team.yearOfFoundation }}</td>
+        <td>{{ team.coach }}</td>
+        <td>
+          <span class="{{ team.lastMatch | matchResultToFaicon }}"></span>
+        </td>
+        <td>{{ team.victories }}/{{ team.matches }}</td>
+        <td>
+          <app-victoryrate
+            [victoryRate]="team.victories / team.matches"
+          ></app-victoryrate>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<a routerLink="/">back to the main page</a>
+  <a routerLink="/">back to the main page</a>
+</div>

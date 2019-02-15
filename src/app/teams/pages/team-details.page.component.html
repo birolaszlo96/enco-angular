@@ -8,6 +8,7 @@
     <strong>Last match:</strong> {{ team.name }} - {{ team.lastMatchAgainst }}
     {{ team.lastMatchScoredGoals }}-{{ team.lastMatchOpponentGoals }}
   </p>
+  <a [routerLink]="['/teams', team.id, 'edit']" mat-raised-button>Edit team</a>
   <!-- <p><strong>:</strong>&nbsp;<app-rating [rating]="team.rating" (clicked)="ratingClicked($event)"></app-rating></p> -->
 </div>
 <ng-template #loading>

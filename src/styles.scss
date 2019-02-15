@@ -3,3 +3,34 @@
 $fa-font-path: '../node_modules/font-awesome/fonts';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~font-awesome/scss/font-awesome.scss';
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+table {
+  width: 100%;
+  th {
+    text-align: left;
+  }
+}
+.table-container {
+  position: relative;
+  min-height: 150px;
+
+  .table-loading-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.mat-raised-button {
+  background-color: yellow;
+}
