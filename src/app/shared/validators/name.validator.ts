@@ -9,11 +9,11 @@ import {
 export function NameValidator(
   control: AbstractControl
 ): ValidationErrors | null {
-  if (!parseInt(control.value, 10)) {
+  if (parseInt(control.value, 10)) {
     return {
       name: {
         valid: false,
-        message: 'Name should be a number.'
+        message: 'Name shouldn\'t be a number.'
       }
     };
   }

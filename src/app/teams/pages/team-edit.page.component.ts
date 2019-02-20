@@ -29,6 +29,7 @@ export class TeamEditPageComponent implements OnInit {
 
   save(team: TeamFormModel): void {
     console.log(team);
+    this.teamsApiClient.updateTeam(this.team);
   }
 
   cancel(): void {

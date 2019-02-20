@@ -99,12 +99,72 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       of(null)
         .pipe(
           mergeMap(() => {
-            console.log('asd');
+            console.log(request.url);
+            if (
+              request.url.match(/\/teams\/\d+$/) // &&
+              // request.method === 'GET'
+            ) {
+              console.log('ads');
+              const urlParts = request.url.split('/');
+              const id = parseInt(urlParts[urlParts.length - 1], 10);
+              const team = detailsMocks.find(x => x.id === id);
+              if (team) {
+                return of(
+                  new HttpResponse({
+                    status: 200,
+                    body: team
+                  })
+                );
+              } else {
+                return throwError({ error: { message: 'Not found :(' } });
+              }
+            }
+
+            // pass through any requests not handled above
+            return next.handle(request);
+          })
+        )
+        // call materialize and dematerialize to ensure delay
+        // even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
+        .pipe(materialize())
+        .pipe(delay(500))
+        .pipe(dematerialize())
+    );
+  }
+}
+
+@Injectable()
+export class Fake2BackendInterceptor implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return (
+      of(null)
+        .pipe(
+          mergeMap(() => {
+            console.log(request.url);
             if (
               request.url.match(/\/teams\/\d+$/) &&
               request.method === 'GET'
             ) {
-              console.log('ads');
+              console.log('Fake2');
+              const urlParts = request.url.split('/');
+              const id = parseInt(urlParts[urlParts.length - 1], 10);
+              const team = detailsMocks.find(x => x.id === id);
+              if (team) {
+                return of(
+                  new HttpResponse({
+                    status: 200,
+                    body: team
+                  })
+                );
+              } else {
+                return throwError({ error: { message: 'Not found :(' } });
+              }
+            }
+            if (request.method === 'PUT') {
+              console.log('FakePUT');
               const urlParts = request.url.split('/');
               const id = parseInt(urlParts[urlParts.length - 1], 10);
               const team = detailsMocks.find(x => x.id === id);

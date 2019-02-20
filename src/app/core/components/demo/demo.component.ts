@@ -1,4 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
 
 @Component({
   selector: 'app-demo',
@@ -7,14 +13,12 @@ import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@a
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DemoComponent {
-
   @Input() model: any;
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef) {}
 
   update(): void {
     // console.log(this.model);
     this.cd.markForCheck();
   }
-
 }

@@ -6,7 +6,7 @@ import {
   EventEmitter,
   OnChanges
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 import { TeamFormModel } from './team-form.model';
@@ -23,12 +23,22 @@ export class TeamFormComponent implements OnChanges {
   @Output() cancel = new EventEmitter<void>();
 
   teamForm = new FormGroup({
-    name: new FormControl('', [Validators.required, NameValidator]),
-    foundation: new FormControl('', [Validators.required]),
+    name: new FormControl('', [
+      Validators.required,
+      // Validators.pattern('.*fc.*' || '.*FC.*')
+      NameValidator
+    ]),
+    yearOfFoundation: new FormControl('', [
+      Validators.minLength(4),
+      Validators.maxLength(4)
+    ]),
     coach: new FormControl(),
     matches: new FormControl(),
+    points: new FormControl(),
     victories: new FormControl(),
-    lastMatch: new FormControl()
+    lastMatchAgainst: new FormControl(),
+    lastMatchScoredGoals: new FormControl(),
+    lastMatchOpponentGoals: new FormControl()
   });
 
   constructor() {}

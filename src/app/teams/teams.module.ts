@@ -6,7 +6,10 @@ import { TeamsApiClientService } from './clients/teams-api-client.service';
 import { SharedModule } from '../shared/shared.module';
 import { TeamDetailsPageComponent } from './pages/team-details.page.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FakeBackendInterceptor } from './clients/mock/fake-teams-api-client.service';
+import {
+  FakeBackendInterceptor,
+  Fake2BackendInterceptor
+} from './clients/mock/fake-teams-api-client.service';
 import { TeamCreatePageComponent } from './pages/team-create.page.component';
 import { TeamEditPageComponent } from './pages/team-edit.page.component';
 import { TeamFormComponent } from '../core/components/team-form/team-form.component';
@@ -25,6 +28,11 @@ import { TeamFormComponent } from '../core/components/team-form/team-form.compon
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FakeBackendInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Fake2BackendInterceptor,
       multi: true
     }
   ]

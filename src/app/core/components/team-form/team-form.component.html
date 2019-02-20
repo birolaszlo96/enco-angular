@@ -19,7 +19,11 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Foundation" formControlName="foundation" />
+    <input
+      matInput
+      placeholder="Foundation"
+      formControlName="yearOfFoundation"
+    />
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Coach" formControlName="coach" />
@@ -28,11 +32,35 @@
     <input matInput placeholder="Matches" formControlName="matches" />
   </mat-form-field>
   <mat-form-field>
+    <input matInput placeholder="Points" formControlName="points" />
+  </mat-form-field>
+  <mat-form-field>
     <input matInput placeholder="Victories" formControlName="victories" />
   </mat-form-field>
-  <mat-checkbox formControlName="lastMatch"
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Last Match Opponent"
+      formControlName="lastMatchAgainst"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Scored goals"
+      formControlName="lastMatchScoredGoals"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Opponent goals"
+      formControlName="lastMatchOpponentGoals"
+    />
+  </mat-form-field>
+  <!-- <mat-checkbox formControlName="lastMatch"
     >Last match was victory</mat-checkbox
-  >
+  > -->
 
   <br />
   <div>
