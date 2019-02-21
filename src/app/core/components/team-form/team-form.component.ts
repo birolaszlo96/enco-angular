@@ -30,7 +30,8 @@ export class TeamFormComponent implements OnChanges {
     ]),
     yearOfFoundation: new FormControl('', [
       Validators.minLength(4),
-      Validators.maxLength(4)
+      Validators.maxLength(4),
+      Validators.pattern('[0-9]*')
     ]),
     coach: new FormControl(),
     matches: new FormControl(),

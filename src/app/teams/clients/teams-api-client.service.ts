@@ -62,7 +62,26 @@ export class TeamsApiClientService {
       .put<TeamDetailsModel>(`/teams/${team.id}`, team, httpOptions)
       .pipe(
         tap(_ => console.log(`updated team id=${team.id}`)),
-        catchError(this.handleError<any>('updateHero'))
+        catchError(this.handleError<any>('updateTeam'))
+      );
+  }
+
+  createTeam(team: TeamDetailsModel): Observable<TeamDetailsModel> {
+    return this.http
+      .post<TeamDetailsModel>(`/teams/create`, team, httpOptions)
+      .pipe(
+        tap(_ => console.log(`created team id=${team.id}`)),
+        catchError(this.handleError<any>('createTeam'))
+      );
+  }
+
+  deleteTeam(team: TeamDetailsModel): Observable<TeamDetailsModel> {
+    console.log(team);
+    return this.http
+      .delete<TeamDetailsModel>(`/teams/${team.id}`, httpOptions)
+      .pipe(
+        tap(_ => console.log(`deleted team id=${team.id}`)),
+        catchError(this.handleError<any>('deleteTeam'))
       );
   }
 }

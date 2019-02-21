@@ -133,6 +133,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               detailsMocks[index] = team;
               const teamList: TeamListModel = {
                 ...team
+                // TODO: lastMatch calculating
               };
               const teamListToUpdate = listMock.find(x => x.id === team.id);
               const listIndex = listMock.indexOf(teamListToUpdate);
@@ -142,6 +143,58 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                   new HttpResponse({
                     status: 200,
                     body: team
+                  })
+                );
+              } else {
+                return throwError({ error: { message: 'Not found :(' } });
+              }
+            }
+            if (
+              request.url.match(/\/teams\/create/) &&
+              request.method === 'POST'
+            ) {
+              console.log('postpostpost');
+              const team = request.body;
+              const newId = detailsMocks[detailsMocks.length - 1].id + 1;
+              if (detailsMocks.find(x => x.id === newId)) {
+                return throwError({
+                  error: { message: 'There is a BIIIIG problem with IDs :(' }
+                });
+              }
+              team.id = newId;
+              detailsMocks.push(team);
+              const teamList: TeamListModel = {
+                ...team
+                // TODO: lastMatch calculating
+              };
+              listMock.push(teamList);
+              if (team) {
+                return of(
+                  new HttpResponse({
+                    status: 200,
+                    body: team
+                  })
+                );
+              } else {
+                return throwError({ error: { message: 'Not found :(' } });
+              }
+            }
+            if (
+              request.url.match(/\/teams\/\d+$/) &&
+              request.method === 'DELETE'
+            ) {
+              console.log('deletedeletedelete');
+              const urlParts = request.url.split('/');
+              const id = parseInt(urlParts[urlParts.length - 1], 10);
+              const index = detailsMocks.findIndex(x => x.id === id);
+              const index2 = listMock.findIndex(x => x.id === id);
+              if (index !== -1 && index2 !== -1) {
+                detailsMocks.splice(index, 1);
+                listMock.splice(index2, 1);
+                return of(
+                  new HttpResponse({
+                    status: 200,
+                    body: 'delete successful'
                   })
                 );
               } else {

@@ -3,6 +3,8 @@ import { TeamsApiClientService } from '../clients/teams-api-client.service';
 import { ActivatedRoute } from '@angular/router';
 import { TeamDetailsModel } from '../models/team-details.model';
 import { fadeInAnimation } from 'src/app/utils/fade-in-animation';
+import { MatSnackBar } from '@angular/material';
+import { Location } from '@angular/common';
 
 @Component({
   templateUrl: './team-details.page.component.html',
@@ -14,6 +16,8 @@ export class TeamDetailsPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private snackbar: MatSnackBar,
+    private location: Location,
     private teamsApiClient: TeamsApiClientService
   ) {}
 
@@ -21,6 +25,15 @@ export class TeamDetailsPageComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
 
     this.teamsApiClient.getTeamDetails(id).subscribe(res => (this.team = res));
+  }
+
+  delete() {
+    if (confirm('Are you sure to delete ' + this.team.name + '???')) {
+      this.teamsApiClient.deleteTeam(this.team).subscribe(() => {
+        this.location.back();
+        this.snackbar.open('Team deleted:', this.team.name, { duration: 3000 });
+      });
+    }
   }
 
   ratingClicked(rating: number): void {

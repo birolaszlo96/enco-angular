@@ -3,6 +3,8 @@
 $fa-font-path: '../node_modules/font-awesome/fonts';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~font-awesome/scss/font-awesome.scss';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -33,10 +35,11 @@ table {
 
 .mat-raised-button {
   background-color: yellow;
+  display: block;
 }
 
 button {
-  margin: 10px auto;
+  margin: 10px;
   text-align: center;
   display: block;
   padding: 10px;

@@ -65,6 +65,13 @@
   <br />
   <div>
     <button mat-button (click)="cancel.emit()">Cancel</button>
-    <button mat-button (click)="save.emit(teamForm.value)">Save</button>
+    <button
+      mat-button
+      type="submit"
+      [disabled]="!teamForm.valid"
+      (click)="save.emit(teamForm.value)"
+    >
+      Save
+    </button>
   </div>
 </form>
