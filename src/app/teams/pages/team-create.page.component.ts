@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TeamDetailsModel } from '../models/team-details.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { TeamsApiClientService } from '../clients/teams-api-client.service';

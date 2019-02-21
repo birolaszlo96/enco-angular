@@ -8,11 +8,12 @@ import { TeamDetailsPageComponent } from './pages/team-details.page.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   FakeBackendInterceptor,
-  Fake2BackendInterceptor
+  Fak2
 } from './clients/mock/fake-teams-api-client.service';
 import { TeamCreatePageComponent } from './pages/team-create.page.component';
 import { TeamEditPageComponent } from './pages/team-edit.page.component';
 import { TeamFormComponent } from '../core/components/team-form/team-form.component';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -22,17 +23,17 @@ import { TeamFormComponent } from '../core/components/team-form/team-form.compon
     TeamEditPageComponent,
     TeamFormComponent
   ],
-  imports: [SharedModule, TeamsRoutingModule],
+  imports: [SharedModule, TeamsRoutingModule, MatSnackBarModule],
   providers: [
     TeamsApiClientService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: FakeBackendInterceptor,
+      useClass: Fak2,
       multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: Fake2BackendInterceptor,
+      useClass: FakeBackendInterceptor,
       multi: true
     }
   ]

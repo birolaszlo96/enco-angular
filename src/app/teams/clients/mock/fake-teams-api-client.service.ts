@@ -10,6 +10,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { TeamListModel } from '../../models/team-list.model';
 import { TeamDetailsModel } from '../../models/team-details.model';
+import 'rxjs/add/operator/do';
 
 const Opponents: Array<string> = [
   'újpest fc',
@@ -78,7 +79,7 @@ export const listMock: TeamListModel[] = [
     lastMatch: 3
   }
 ];
-export const detailsMocks: TeamDetailsModel[] = listMock.map(
+export let detailsMocks: TeamDetailsModel[] = listMock.map(
   (x: TeamListModel): TeamDetailsModel => ({
     ...x,
     points:
@@ -101,10 +102,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           mergeMap(() => {
             console.log(request.url);
             if (
-              request.url.match(/\/teams\/\d+$/) // &&
-              // request.method === 'GET'
+              request.url.match(/\/teams\/\d+$/) &&
+              request.method === 'GET'
             ) {
-              console.log('ads');
+              console.log('getgetget');
               const urlParts = request.url.split('/');
               const id = parseInt(urlParts[urlParts.length - 1], 10);
               const team = detailsMocks.find(x => x.id === id);
@@ -119,7 +120,35 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return throwError({ error: { message: 'Not found :(' } });
               }
             }
-
+            if (
+              request.url.match(/\/teams\/\d+$/) &&
+              request.method === 'PUT'
+            ) {
+              console.log('putputput');
+              const team = request.body;
+              const teamDetailsToUpdate = detailsMocks.find(
+                x => x.id === team.id
+              );
+              const index = detailsMocks.indexOf(teamDetailsToUpdate);
+              detailsMocks[index] = team;
+              const teamList: TeamListModel = {
+                ...team
+              };
+              const teamListToUpdate = listMock.find(x => x.id === team.id);
+              const listIndex = listMock.indexOf(teamListToUpdate);
+              listMock[listIndex] = teamList;
+              if (team) {
+                return of(
+                  new HttpResponse({
+                    status: 200,
+                    body: team
+                  })
+                );
+              } else {
+                return throwError({ error: { message: 'Not found :(' } });
+              }
+            }
+            console.log('egyikbe se futott bele');
             // pass through any requests not handled above
             return next.handle(request);
           })
@@ -134,61 +163,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 }
 
 @Injectable()
-export class Fake2BackendInterceptor implements HttpInterceptor {
+export class Fak2 implements HttpInterceptor {
   intercept(
-    request: HttpRequest<any>,
+    req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return (
-      of(null)
-        .pipe(
-          mergeMap(() => {
-            console.log(request.url);
-            if (
-              request.url.match(/\/teams\/\d+$/) &&
-              request.method === 'GET'
-            ) {
-              console.log('Fake2');
-              const urlParts = request.url.split('/');
-              const id = parseInt(urlParts[urlParts.length - 1], 10);
-              const team = detailsMocks.find(x => x.id === id);
-              if (team) {
-                return of(
-                  new HttpResponse({
-                    status: 200,
-                    body: team
-                  })
-                );
-              } else {
-                return throwError({ error: { message: 'Not found :(' } });
-              }
-            }
-            if (request.method === 'PUT') {
-              console.log('FakePUT');
-              const urlParts = request.url.split('/');
-              const id = parseInt(urlParts[urlParts.length - 1], 10);
-              const team = detailsMocks.find(x => x.id === id);
-              if (team) {
-                return of(
-                  new HttpResponse({
-                    status: 200,
-                    body: team
-                  })
-                );
-              } else {
-                return throwError({ error: { message: 'Not found :(' } });
-              }
-            }
-
-            // pass through any requests not handled above
-            return next.handle(request);
-          })
-        )
-        // call materialize and dematerialize to ensure delay
-        // even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-        .pipe(materialize())
-        .pipe(delay(500))
-        .pipe(dematerialize())
-    );
+    return next.handle(req).do(evt => {
+      if (evt instanceof HttpResponse) {
+        console.log('---> status:', evt.status);
+        console.log('---> filter:', req.params.get('filter'));
+        console.log(detailsMocks);
+      }
+    });
   }
 }

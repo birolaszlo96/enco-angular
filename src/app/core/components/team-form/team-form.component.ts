@@ -9,8 +9,8 @@ import {
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
-import { TeamFormModel } from './team-form.model';
 import { NameValidator } from 'src/app/shared/validators/name.validator';
+import { TeamFormModel } from './team-form.model';
 
 @Component({
   selector: 'app-team-form',

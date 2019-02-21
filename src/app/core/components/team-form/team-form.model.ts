@@ -1,5 +1,5 @@
 export interface TeamFormModel {
-  id?: number;
+  id: number;
   name: string;
   yearOfFoundation: number;
   coach: string;
