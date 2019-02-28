@@ -100,7 +100,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       of(null)
         .pipe(
           mergeMap(() => {
-            console.log(request.url);
+            // console.log(request.url);
             if (
               request.url.match(/\/teams\/\d+$/) &&
               request.method === 'GET'
@@ -131,10 +131,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               );
               const index = detailsMocks.indexOf(teamDetailsToUpdate);
               detailsMocks[index] = team;
+              const lastmatch =
+                team.lastMatchScoredGoals < team.lastMatchOpponentGoals
+                  ? 0
+                  : team.lastMatchScoredGoals === team.lastMatchOpponentGoals
+                  ? 1
+                  : 2;
               const teamList: TeamListModel = {
-                ...team
-                // TODO: lastMatch calculating
+                ...team,
+                lastMatch: lastmatch
               };
+              console.log(teamList);
               const teamListToUpdate = listMock.find(x => x.id === team.id);
               const listIndex = listMock.indexOf(teamListToUpdate);
               listMock[listIndex] = teamList;
@@ -163,9 +170,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               }
               team.id = newId;
               detailsMocks.push(team);
+              const lastmatch =
+                team.lastMatchScoredGoals < team.lastMatchOpponentGoals
+                  ? 0
+                  : team.lastMatchScoredGoals === team.lastMatchOpponentGoals
+                  ? 1
+                  : 2;
               const teamList: TeamListModel = {
-                ...team
-                // TODO: lastMatch calculating
+                ...team,
+                lastMatch: lastmatch
               };
               listMock.push(teamList);
               if (team) {
@@ -225,7 +238,7 @@ export class Fak2 implements HttpInterceptor {
       if (evt instanceof HttpResponse) {
         console.log('---> status:', evt.status);
         console.log('---> filter:', req.params.get('filter'));
-        console.log(detailsMocks);
+        console.log(listMock);
       }
     });
   }

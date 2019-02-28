@@ -17,10 +17,13 @@ import { TeamFormModel } from './team-form.model';
   templateUrl: './team-form.component.html',
   styleUrls: ['./team-form.component.scss']
 })
-export class TeamFormComponent implements OnChanges {
+export class TeamFormComponent implements OnChanges, OnInit {
   @Input() team: TeamFormModel;
   @Output() save = new EventEmitter<TeamFormModel>();
   @Output() cancel = new EventEmitter<void>();
+
+  startYear = 1850;
+  yearNumbers = [];
 
   teamForm = new FormGroup({
     name: new FormControl('', [
@@ -28,11 +31,7 @@ export class TeamFormComponent implements OnChanges {
       // Validators.pattern('.*fc.*' || '.*FC.*')
       NameValidator
     ]),
-    yearOfFoundation: new FormControl('', [
-      Validators.minLength(4),
-      Validators.maxLength(4),
-      Validators.pattern('[0-9]*')
-    ]),
+    yearOfFoundation: new FormControl(),
     coach: new FormControl(),
     matches: new FormControl(),
     points: new FormControl(),
@@ -43,6 +42,16 @@ export class TeamFormComponent implements OnChanges {
   });
 
   constructor() {}
+
+  public ngOnInit() {
+    const currentYear = new Date().getFullYear();
+    this.yearNumbers = Array(currentYear - (this.startYear - 1))
+      .fill(0)
+      .map((x, i) => i + this.startYear);
+    // this.teamForm.valueChanges.subscribe(form => {
+    //   sessionStorage.setItem('form', JSON.stringify(form));
+    // }); // ez a cucc elmentené a session storage-be minden módosításnál - van amikor hasznos, pl oldal újratöltésénél
+  }
 
   ngOnChanges() {
     if (this.team) {

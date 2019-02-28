@@ -19,23 +19,48 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input
-      matInput
+    <mat-select
       placeholder="Foundation"
       formControlName="yearOfFoundation"
-    />
+      [(ngModel)]="yearNumbers[team.yearOfFoundation - startYear]"
+    >
+      <mat-option *ngFor="let number of yearNumbers" [value]="number">{{
+        number
+      }}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Coach" formControlName="coach" />
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Matches" formControlName="matches" />
+    <input
+      matInput
+      type="number"
+      placeholder="Matches"
+      formControlName="matches"
+      min="{{ teamForm.value.victories }}"
+      min="{{ teamForm.value.points / 3 }}"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Points" formControlName="points" />
+    <input
+      matInput
+      type="number"
+      placeholder="Points"
+      formControlName="points"
+      min="teamForm.value.victories *3"
+      max="{{ teamForm.value.matches * 3 }}"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Victories" formControlName="victories" />
+    <input
+      matInput
+      type="number"
+      placeholder="Victories"
+      formControlName="victories"
+      max="{{ team.matches }}"
+      max="{{ teamForm.value.points / 3 }}"
+    />
   </mat-form-field>
   <mat-form-field>
     <input
@@ -47,20 +72,21 @@
   <mat-form-field>
     <input
       matInput
+      type="number"
       placeholder="Scored goals"
       formControlName="lastMatchScoredGoals"
+      min="0"
     />
   </mat-form-field>
   <mat-form-field>
     <input
       matInput
+      type="number"
       placeholder="Opponent goals"
       formControlName="lastMatchOpponentGoals"
+      min="0"
     />
   </mat-form-field>
-  <!-- <mat-checkbox formControlName="lastMatch"
-    >Last match was victory</mat-checkbox
-  > -->
 
   <br />
   <div>
