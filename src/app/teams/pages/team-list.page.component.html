@@ -47,7 +47,11 @@
         <td>
           <span class="{{ team.lastMatch | matchResultToFaicon }}"></span>
         </td>
-        <td>{{ team.victories }}/{{ team.matches }}</td>
+        <td>
+          {{ team.victories === null ? '?' : team.victories }}/{{
+            team.matches === null ? '?' : team.matches
+          }}
+        </td>
         <td>
           <app-victoryrate
             [victoryRate]="team.victories / team.matches"

@@ -32,11 +32,11 @@ export class TeamFormComponent implements OnChanges, OnInit {
       NameValidator
     ]),
     yearOfFoundation: new FormControl(),
-    coach: new FormControl(),
+    coach: new FormControl('', [NameValidator]),
     matches: new FormControl(),
     points: new FormControl(),
     victories: new FormControl(),
-    lastMatchAgainst: new FormControl(),
+    lastMatchAgainst: new FormControl('', [NameValidator]),
     lastMatchScoredGoals: new FormControl(),
     lastMatchOpponentGoals: new FormControl()
   });

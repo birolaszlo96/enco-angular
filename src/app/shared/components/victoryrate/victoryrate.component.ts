@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'app-victoryrate',
@@ -13,9 +19,11 @@ export class VictoryRateComponent implements OnChanges {
   victoryRateString = '';
 
   ngOnChanges(): void {
+    if (isNaN(this.victoryRate)) {
+      this.victoryRate = 0;
+    }
     this.squareWidth = this.victoryRate * 138;
     this.victoryRateString = Math.floor(this.victoryRate * 100) + ' %';
-
   }
 
   onClick(victoryRate: number): void {

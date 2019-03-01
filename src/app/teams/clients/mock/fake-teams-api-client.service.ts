@@ -138,7 +138,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               const index = detailsMocks.indexOf(teamDetailsToUpdate);
               detailsMocks[index] = team;
               const lastmatch =
-                team.lastMatchScoredGoals < team.lastMatchOpponentGoals
+                team.lastMatchScoredGoals == null ||
+                team.lastMatchOpponentGoals == null
+                  ? null
+                  : team.lastMatchScoredGoals < team.lastMatchOpponentGoals
                   ? MatchResult.Defeat
                   : team.lastMatchScoredGoals === team.lastMatchOpponentGoals
                   ? MatchResult.Draw
@@ -177,7 +180,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               team.id = newId;
               detailsMocks.push(team);
               const lastmatch =
-                team.lastMatchScoredGoals < team.lastMatchOpponentGoals
+                team.lastMatchScoredGoals == null ||
+                team.lastMatchOpponentGoals == null
+                  ? null
+                  : team.lastMatchScoredGoals < team.lastMatchOpponentGoals
                   ? MatchResult.Defeat
                   : team.lastMatchScoredGoals === team.lastMatchOpponentGoals
                   ? MatchResult.Draw
