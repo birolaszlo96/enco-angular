@@ -10,6 +10,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { TeamListModel } from '../../models/team-list.model';
 import { TeamDetailsModel } from '../../models/team-details.model';
+import { MatchResult } from '../../models/match-result.model';
 import 'rxjs/add/operator/do';
 
 const Opponents: Array<string> = [
@@ -31,7 +32,7 @@ export const listMock: TeamListModel[] = [
     coach: 'Serhiy Rebrov',
     matches: 10,
     victories: 6,
-    lastMatch: 1
+    lastMatch: MatchResult.Draw
   },
   {
     id: 2,
@@ -40,7 +41,7 @@ export const listMock: TeamListModel[] = [
     coach: 'Marko Nikolic',
     matches: 9,
     victories: 9,
-    lastMatch: 3
+    lastMatch: MatchResult.Victory
   },
   {
     id: 3,
@@ -49,7 +50,7 @@ export const listMock: TeamListModel[] = [
     coach: 'Horváth Ferenc',
     matches: 10,
     victories: 0,
-    lastMatch: 0
+    lastMatch: MatchResult.Defeat
   },
   {
     id: 4,
@@ -58,7 +59,7 @@ export const listMock: TeamListModel[] = [
     coach: 'Marco Rossi',
     matches: 10,
     victories: 5,
-    lastMatch: 1
+    lastMatch: MatchResult.Draw
   },
   {
     id: 5,
@@ -67,7 +68,7 @@ export const listMock: TeamListModel[] = [
     coach: 'Kuttor Attila',
     matches: 10,
     victories: 4,
-    lastMatch: 0
+    lastMatch: MatchResult.Defeat
   },
   {
     id: 6,
@@ -76,7 +77,7 @@ export const listMock: TeamListModel[] = [
     coach: 'Fernando Fernández',
     matches: 10,
     victories: 3,
-    lastMatch: 3
+    lastMatch: MatchResult.Victory
   }
 ];
 export let detailsMocks: TeamDetailsModel[] = listMock.map(
@@ -85,7 +86,12 @@ export let detailsMocks: TeamDetailsModel[] = listMock.map(
     points:
       x.victories * 3 + Math.floor(Math.random() * (x.matches - x.victories)),
     lastMatchAgainst: Opponents[Math.floor(Math.random() * Opponents.length)],
-    lastMatchScoredGoals: x.lastMatch === 0 ? 0 : x.lastMatch === 1 ? 1 : 2,
+    lastMatchScoredGoals:
+      x.lastMatch === MatchResult.Defeat
+        ? 0
+        : x.lastMatch === MatchResult.Draw
+        ? 1
+        : 2,
     lastMatchOpponentGoals: 1
   })
 );
@@ -133,10 +139,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               detailsMocks[index] = team;
               const lastmatch =
                 team.lastMatchScoredGoals < team.lastMatchOpponentGoals
-                  ? 0
+                  ? MatchResult.Defeat
                   : team.lastMatchScoredGoals === team.lastMatchOpponentGoals
-                  ? 1
-                  : 2;
+                  ? MatchResult.Draw
+                  : MatchResult.Victory;
               const teamList: TeamListModel = {
                 ...team,
                 lastMatch: lastmatch
@@ -172,10 +178,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               detailsMocks.push(team);
               const lastmatch =
                 team.lastMatchScoredGoals < team.lastMatchOpponentGoals
-                  ? 0
+                  ? MatchResult.Defeat
                   : team.lastMatchScoredGoals === team.lastMatchOpponentGoals
-                  ? 1
-                  : 2;
+                  ? MatchResult.Draw
+                  : MatchResult.Victory;
               const teamList: TeamListModel = {
                 ...team,
                 lastMatch: lastmatch

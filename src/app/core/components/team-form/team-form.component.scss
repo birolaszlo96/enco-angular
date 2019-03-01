@@ -1,7 +1,35 @@
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 form > * {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+button[type='submit'][ng-reflect-disabled='false'] {
+  color: white;
+  background: dodgerblue;
+}
+
+.div-wrapper {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+mat-form-field.num {
+  margin-right: 3%;
+  display: inline;
+  width: 6%;
+}
+mat-form-field.text {
+  margin-right: 3%;
+  display: inline;
+  width: 20%;
+}
+mat-form-field.yeardropdown {
+  margin-right: 3%;
+  display: inline;
+  width: 10%;
 }

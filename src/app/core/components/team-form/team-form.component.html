@@ -1,103 +1,112 @@
-<form [formGroup]="teamForm">
-  <mat-form-field>
-    <input matInput placeholder="Name" formControlName="name" />
-    <mat-error
-      *ngIf="
-        (teamForm.get('name').dirty || teamForm.get('name').touched) &&
-        teamForm.get('name').hasError('required')
-      "
-    >
-      Name is required
-    </mat-error>
-    <mat-error
-      *ngIf="
-        (teamForm.get('name').dirty || teamForm.get('name').touched) &&
-        teamForm.get('name').hasError('name')
-      "
-    >
-      {{ teamForm.get('name').getError('name').message }}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select
-      placeholder="Foundation"
-      formControlName="yearOfFoundation"
-      [(ngModel)]="yearNumbers[team.yearOfFoundation - startYear]"
-    >
-      <mat-option *ngFor="let number of yearNumbers" [value]="number">{{
-        number
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Coach" formControlName="coach" />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      placeholder="Matches"
-      formControlName="matches"
-      min="{{ teamForm.value.victories }}"
-      min="{{ teamForm.value.points / 3 }}"
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      placeholder="Points"
-      formControlName="points"
-      min="teamForm.value.victories *3"
-      max="{{ teamForm.value.matches * 3 }}"
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      placeholder="Victories"
-      formControlName="victories"
-      max="{{ team.matches }}"
-      max="{{ teamForm.value.points / 3 }}"
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      placeholder="Last Match Opponent"
-      formControlName="lastMatchAgainst"
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      placeholder="Scored goals"
-      formControlName="lastMatchScoredGoals"
-      min="0"
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      placeholder="Opponent goals"
-      formControlName="lastMatchOpponentGoals"
-      min="0"
-    />
-  </mat-form-field>
-
+<form id="myForm" [formGroup]="teamForm">
+  <div class="div-wrapper">
+    <mat-form-field class="text">
+      <input matInput placeholder="Name" formControlName="name" />
+      <mat-error
+        *ngIf="
+          (teamForm.get('name').dirty || teamForm.get('name').touched) &&
+          teamForm.get('name').hasError('required')
+        "
+      >
+        Name is required
+      </mat-error>
+      <mat-error
+        *ngIf="
+          (teamForm.get('name').dirty || teamForm.get('name').touched) &&
+          teamForm.get('name').hasError('name')
+        "
+      >
+        {{ teamForm.get('name').getError('name').message }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="yeardropdown">
+      <mat-select
+        placeholder="Foundation"
+        formControlName="yearOfFoundation"
+        [(ngModel)]="yearNumbers[team.yearOfFoundation - startYear]"
+      >
+        <mat-option *ngFor="let number of yearNumbers" [value]="number">{{
+          number
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="text">
+      <input matInput placeholder="Coach" formControlName="coach" />
+    </mat-form-field>
+  </div>
+  <div class="div-wrapper">
+    <mat-form-field class="num">
+      <input
+        matInput
+        type="number"
+        placeholder="Matches"
+        formControlName="matches"
+        min="{{ teamForm.value.victories }}"
+        min="{{ teamForm.value.points / 3 }}"
+      />
+    </mat-form-field>
+    <mat-form-field class="num">
+      <input
+        matInput
+        type="number"
+        placeholder="Points"
+        formControlName="points"
+        min="teamForm.value.victories *3"
+        max="{{ teamForm.value.matches * 3 }}"
+      />
+    </mat-form-field>
+    <mat-form-field class="num">
+      <input
+        matInput
+        type="number"
+        placeholder="Victories"
+        formControlName="victories"
+        max="{{ team.matches }}"
+        max="{{ teamForm.value.points / 3 }}"
+      />
+    </mat-form-field>
+  </div>
+  <b>Last Match</b>
+  <div class="div-wrapper">
+    <mat-form-field class="text">
+      <input
+        matInput
+        placeholder="Opponent Name"
+        formControlName="lastMatchAgainst"
+      />
+    </mat-form-field>
+    <mat-form-field class="num">
+      <input
+        matInput
+        type="number"
+        placeholder="Scored goals"
+        formControlName="lastMatchScoredGoals"
+        min="0"
+      />
+    </mat-form-field>
+    <mat-form-field class="num">
+      <input
+        matInput
+        type="number"
+        placeholder="Opponent goals"
+        formControlName="lastMatchOpponentGoals"
+        min="0"
+      />
+    </mat-form-field>
+  </div>
   <br />
   <div>
-    <button mat-button (click)="cancel.emit()">Cancel</button>
     <button
       mat-button
       type="submit"
+      class="submit-button"
       [disabled]="!teamForm.valid"
       (click)="save.emit(teamForm.value)"
     >
       Save
+    </button>
+    <button mat-button (click)="cancel.emit()">
+      Cancel
     </button>
   </div>
 </form>

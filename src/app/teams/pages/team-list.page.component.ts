@@ -17,6 +17,7 @@ import {
   distinctUntilChanged,
   takeUntil
 } from 'rxjs/operators';
+import { MatchResult } from '../models/match-result.model';
 
 @Component({
   templateUrl: './team-list.page.component.html'
@@ -89,12 +90,12 @@ export class TeamListPageComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  getFaIconForMatchResult(matchResult: number) {
+  getFaIconForMatchResult(matchResult: MatchResult) {
     console.log('getFaIconForMatchResult');
     switch (matchResult) {
-      case 3:
+      case MatchResult.Victory:
         return 'victory :)';
-      case 1:
+      case MatchResult.Draw:
         return 'draw :|';
       default:
         return 'defeat :(';
